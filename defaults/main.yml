@@ -1,0 +1,26 @@
+---
+## solr instance type: master/slave
+solr_instance_type: master
+
+## solr config directory
+solr_version: 8.0.0
+
+solr_service_name: solr
+solr_with_systemd: True
+
+solr_base_path: /var/solr
+solr_home: '{{ solr_base_path }}/data'
+
+solr_dest_main_path: '{{ default_solr_dest_main_path }}'
+solr_dest_path: '{{ solr_dest_main_path }}/solr-{{ solr_version }}'
+solr_configset_path: '{{ default_solr_configset_path }}'
+
+configset_list:
+  - default
+auto_populate_configset_list: True
+
+## solr master configuration
+# solr_master_defined_host: solr.example.com
+master_group: solr-master
+solr_port: 8983
+solr_ssl_enabled: True

@@ -1,0 +1,25 @@
+---
+- name: Set configset list
+  win_find:
+    paths: '{{ solr_configset_path }}'
+    file_type: directory
+  register: configset_output
+  when: auto_populate_configset_list
+
+- name: Populate configset list
+  set_fact:
+    configset_list: >-
+      {{ configset_output.files | map(attribute='path') | list }}
+  when: auto_populate_configset_list
+
+- name: Get config files list contained replication handler
+  win_command: >
+    findstr /r /i /n ".*requestHandler.*replication.*solr.ReplicationHandler.*"
+    solrconfig.xml
+  args:
+    chdir: '{{ solr_configset_path }}/{{ item | win_basename }}/conf'
+    removes: '{{ solr_configset_path }}/{{ item | win_basename }}/conf/solrconfig.xml'
+  register: true_configset_xml_list
+  loop: '{{ configset_list }}'
+  failed_when: False
+  changed_when: False

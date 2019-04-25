@@ -1,0 +1,23 @@
+---
+- name: Set configset list
+  find:
+    paths: '{{ solr_configset_path }}'
+    file_type: directory
+  register: configset_output
+  become: True
+  when: auto_populate_configset_list
+
+- name: Populate configset list
+  set_fact:
+    configset_list: >-
+      {{ configset_output.files | map(attribute='path') | list }}
+  when: auto_populate_configset_list
+
+- name: Get config files list contained replication handler
+  find:
+    paths: '{{ solr_configset_path }}/{{ item | basename }}/conf'
+    patterns: 'solrconfig.xml'
+    contains: '(.*)requestHandler(.*)replication(.*)solr.ReplicationHandler(.*)'
+  register: true_configset_xml_list
+  loop: '{{ configset_list }}'
+  become: True

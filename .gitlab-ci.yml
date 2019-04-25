@@ -1,0 +1,34 @@
+---
+# Run all tests
+stages:
+  - lint
+  - deployment test
+
+before_script:
+  - rm -rf molecule/resources/provisioning
+  - ansible --version
+  - ansible-lint --version
+  - molecule --version
+  - git clone https://github.com/lean-delivery/ansible-molecule-drivers.git molecule/resources/provisioning
+
+variables:
+  GET_SOURCES_ATTEMPTS: "5"
+
+Ansible lint:
+  stage: lint
+  before_script:
+    - git clone https://github.com/lean-delivery/ansible-lint-rules.git ~/ansible-lint-rules
+  script:
+    - ansible-lint . -c .ansible-lint
+  after_script:
+    - rm -rf ~/ansible-lint-rules
+  tags:
+    - aws
+
+Docker solr-cluster:
+  stage: deployment test
+  script:
+    - molecule test -s default-master
+    - molecule test -s default-slave
+  tags:
+    - aws
