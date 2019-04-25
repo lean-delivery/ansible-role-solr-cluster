@@ -5,6 +5,7 @@
     - role: lean_delivery.java
       transport: chocolatey
       java_major_version: 8
+      java_minor_version: 202
       java_package: jdk
       java_tarball_install: False
     - role: lean_delivery.solr_standalone
