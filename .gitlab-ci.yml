@@ -25,10 +25,70 @@ Ansible lint:
   tags:
     - aws
 
-Docker solr-cluster:
+Docker solr-cluster-master:
   stage: deployment test
   script:
-    - molecule test -s default-master
-    - molecule test -s default-slave
+    - molecule test -s docker-solr-master
   tags:
     - aws
+
+Docker solr-cluster-slave:
+  stage: deployment test
+  script:
+    - molecule test -s docker-solr-slave
+  tags:
+    - aws
+
+AWS solr-cluster-master:
+  variables:
+    AWS_REGION: us-east-1
+  stage: deployment test
+  script:
+    - molecule test -s cloud-aws-solr-master
+  tags:
+    - aws
+
+AWS solr-cluster-slave:
+  variables:
+    AWS_REGION: us-east-1
+  stage: deployment test
+  script:
+    - molecule test -s cloud-aws-solr-slave
+  tags:
+    - aws
+
+AWS Windows solr-cluster-master:
+  variables:
+    AWS_REGION: us-east-1
+  stage: deployment test
+  script:
+    - molecule test -s cloud-aws-windows-solr-master
+  tags:
+    - aws
+
+AWS Windows solr-cluster-slave:
+  variables:
+    AWS_REGION: us-east-1
+  stage: deployment test
+  script:
+    - molecule test -s cloud-aws-windows-solr-slave
+  tags:
+    - aws
+
+EPC solr-cluster-master:
+  variables:
+    EPC_REGION: EPAM-BY2
+  stage: deployment test
+  script:
+    - molecule test -s cloud-epc-solr-master
+  tags:
+    - delegated
+
+EPC solr-cluster-slave:
+  variables:
+    EPC_REGION: EPAM-BY2
+  stage: deployment test
+  script:
+    - molecule test -s cloud-epc-solr-slave
+  tags:
+    - delegated

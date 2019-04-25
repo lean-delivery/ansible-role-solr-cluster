@@ -1,0 +1,14 @@
+---
+- name: Converge
+  hosts: all
+  roles:
+    - role: lean_delivery.java
+      transport: chocolatey
+      java_major_version: 8
+      java_package: jdk
+      java_tarball_install: False
+    - role: lean_delivery.solr_standalone
+    - role: ansible-role-solr-cluster
+  vars:
+    solr_change_default_password: False
+    solr_copy_default_configsets: True

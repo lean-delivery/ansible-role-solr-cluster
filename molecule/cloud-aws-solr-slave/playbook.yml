@@ -1,0 +1,15 @@
+---
+- name: Converge
+  hosts: all
+  roles:
+    - role: lean_delivery.java
+      transport: web
+      transport_web: "{{ lookup('env','STORAGE_AWS') }}/oracle-java/jre-8u211-linux-x64.tar.gz"
+      java_tarball_install: True
+    - role: lean_delivery.solr_standalone
+    - role: ansible-role-solr-cluster
+  vars:
+    solr_instance_type: slave
+    solr_change_default_password: False
+    solr_copy_default_configsets: True
+    solr_master_defined_host: solr-master.example.com
