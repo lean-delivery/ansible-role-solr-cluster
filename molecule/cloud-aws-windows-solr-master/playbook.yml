@@ -7,6 +7,7 @@
       transport_web: "{{ lookup('env','STORAGE_AWS') }}/oracle-java/jdk-8u45-windows-x64.exe"
       java_major_version: 8
       java_minor_version: 45
+      java_tarball_install: False
     - role: lean_delivery.solr_standalone
     - role: ansible-role-solr-cluster
   vars:
