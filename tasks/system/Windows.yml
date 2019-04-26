@@ -23,3 +23,19 @@
   loop: '{{ configset_list }}'
   failed_when: False
   changed_when: False
+
+- name: Configure solr node
+  win_lineinfile:
+    path: '{{ solr_configset_path }}/{{ item.item | win_basename }}\conf\solrconfig.xml'
+    insertafter: '.*<requestHandler name="/replication" class="solr.ReplicationHandler".*>'
+    line: '{{ solr_config_lines }}'
+    regexp:
+      '<!--\sBEGIN\ssolr\sansible\scustom\sblock(.*)
+      END\ssolr\sansible\scustom\sblock\s-->'
+  when: item.stdout_lines | length
+  loop: '{{ true_configset_xml_list.results }}'
+  notify:
+    - restart Solr Windows
+
+- name: Force all notified handlers
+  meta: flush_handlers

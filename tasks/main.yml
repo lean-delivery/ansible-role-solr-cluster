@@ -35,14 +35,3 @@
     - system/not-supported.yml
   loop_control:
     loop_var: platform
-
-- name: Include platform and instance type based tasks
-  include_tasks: '{{ platform_instance }}'
-  with_first_found:
-    - 'system/instance_type/{{ ansible_system }}-{{ solr_instance_type }}.yml'
-    - 'system/instance_type/{{ ansible_os_family }}-{{ solr_instance_type }}.yml'
-  loop_control:
-    loop_var: platform_instance
-
-- name: Force all notified handlers
-  meta: flush_handlers

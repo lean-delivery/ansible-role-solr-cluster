@@ -5,6 +5,9 @@ solr_instance_type: master
 ## solr config directory
 solr_version: 8.0.0
 
+### solr config lines
+solr_config_lines: '{{ default_solr_config_lines }}'
+
 solr_service_name: solr
 solr_with_systemd: True
 
