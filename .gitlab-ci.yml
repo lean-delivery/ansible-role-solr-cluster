@@ -25,21 +25,21 @@ Ansible lint:
   tags:
     - aws
 
-.Docker solr-cluster-master:
+Docker solr-cluster-master:
   stage: deployment test
   script:
     - molecule test -s docker-solr-master
   tags:
     - aws
 
-.Docker solr-cluster-slave:
+Docker solr-cluster-slave:
   stage: deployment test
   script:
     - molecule test -s docker-solr-slave
   tags:
     - aws
 
-.AWS solr-cluster-master:
+AWS solr-cluster-master:
   variables:
     AWS_REGION: us-east-1
   stage: deployment test
@@ -48,7 +48,7 @@ Ansible lint:
   tags:
     - aws
 
-.AWS solr-cluster-slave:
+AWS solr-cluster-slave:
   variables:
     AWS_REGION: us-east-1
   stage: deployment test
@@ -75,7 +75,7 @@ AWS Windows solr-cluster-slave:
   tags:
     - aws
 
-.EPC solr-cluster-master:
+EPC solr-cluster-master:
   variables:
     EPC_REGION: EPAM-BY2
   stage: deployment test
@@ -84,7 +84,7 @@ AWS Windows solr-cluster-slave:
   tags:
     - delegated
 
-.EPC solr-cluster-slave:
+EPC solr-cluster-slave:
   variables:
     EPC_REGION: EPAM-BY2
   stage: deployment test
