@@ -10,21 +10,6 @@ lint:
   options:
     config-file: .yamllint
 platforms:
-  - name: test-aws-centos7-solr-master-solr8
-    image: ami-9887c6e7
-    instance_type: m5.large
-    region: us-east-1
-    vpc_subnet_id: subnet-05a2ef2b767afec50
-    assign_public_ip: False
-    spot_price: 0.04
-    security_group_name:
-      - default
-    wait_timeout: 1800
-    ssh_user: centos
-    groups:
-      - rhel_family
-      - solr8
-
   - name: test-aws-centos7-solr-master-solr7
     image: ami-9887c6e7
     instance_type: m5.large
@@ -40,6 +25,22 @@ platforms:
       - rhel_family
       - solr7
 
+  - name: test-aws-centos7-solr-slave-solr8
+    image: ami-9887c6e7
+    instance_type: m5.large
+    region: us-east-1
+    vpc_subnet_id: subnet-05a2ef2b767afec50
+    assign_public_ip: False
+    spot_price: 0.04
+    security_group_name:
+      - default
+    wait_timeout: 1800
+    ssh_user: centos
+    groups:
+      - rhel_family
+      - solr8
+      - slave
+
   - name: test-aws-ubuntu16-solr-master
     image: ami-09677e0a6b14905b0
     instance_type: m5.large
@@ -54,7 +55,7 @@ platforms:
     groups:
       - debian_family
 
-  - name: test-aws-ubuntu18-solr-master-solr7
+  - name: test-aws-ubuntu18-solr-slave-solr7
     image: ami-012fd5eb46f56731f
     instance_type: m5.large
     region: us-east-1
@@ -68,6 +69,7 @@ platforms:
     groups:
       - debian_family
       - solr7
+      - slave
 
   - name: test-aws-ubuntu18-solr-master-solr8
     image: ami-012fd5eb46f56731f
@@ -84,7 +86,7 @@ platforms:
       - debian_family
       - solr8
 
-  - name: test-aws-Debian9-solr-master
+  - name: test-aws-Debian9-solr-slave
     image: ami-003f19e0e687de1cd
     instance_type: m5.large
     region: us-east-1
@@ -97,6 +99,7 @@ platforms:
     ssh_user: admin
     groups:
       - debian_family
+      - slave
 
 provisioner:
   name: ansible
@@ -107,6 +110,9 @@ provisioner:
         solr_version: 7.7.1
       solr8:
         solr_version: 8.0.0
+      slave:
+        solr_instance_type: slave
+        solr_master_defined_host: solr-master.example.com
   playbooks:
     create: ../resources/provisioning/AWS/create.yml
     prepare: ../resources/provisioning/AWS/prepare.yml
@@ -114,7 +120,7 @@ provisioner:
   lint:
     name: ansible-lint
 scenario:
-  name: cloud-aws-solr-master
+  name: cloud-aws-direct
 verifier:
   name: testinfra
   options:

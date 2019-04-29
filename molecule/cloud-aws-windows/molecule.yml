@@ -10,7 +10,6 @@ lint:
   options:
     config-file: .yamllint
 platforms:
-
   - name: test-aws-Windows2016-solr-slave-solr7
     aws_image_id: ami-00a20f508263efd30
     aws_region: us-east-1
@@ -24,8 +23,9 @@ platforms:
     groups:
       - windows
       - solr7
+      - slave
 
-  - name: test-aws-Windows2016-solr-slave-solr8
+  - name: test-aws-Windows2016-solr-master-solr8
     aws_image_id: ami-00a20f508263efd30
     aws_region: us-east-1
     instance_type: m5.large
@@ -50,6 +50,9 @@ provisioner:
         solr_version: 7.7.1
       solr8:
         solr_version: 8.0.0
+      slave:
+        solr_instance_type: slave
+        solr_master_defined_host: solr-master.example.com
       windows:
         ansible_password: "{{ lookup('env', 'WINRM_ADMIN_PWD') | default('M0leCule123!', True) }}"
         ansible_winrm_transport: credssp
@@ -60,7 +63,7 @@ provisioner:
   lint:
     name: ansible-lint
 scenario:
-  name: cloud-aws-windows-solr-slave
+  name: cloud-aws-windows
 verifier:
   name: testinfra
   options:

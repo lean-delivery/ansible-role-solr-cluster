@@ -10,13 +10,15 @@ lint:
   options:
     config-file: .yamllint
 platforms:
-  - name: test-epc-centos7-solr-master
+  - name: test-epc-centos7-solr-slave
     image: CentOS7_64-bit
     shape: small
     region: EPAM-BY2
     wait_timeout: 3600
     groups:
       - rhel_family
+      - slave
+
   - name: test-epc-ubuntu1804-solr-master
     image: Ubuntu18.04_64-bit
     shape: small
@@ -24,9 +26,15 @@ platforms:
     wait_timeout: 3600
     groups:
       - debian_family
+
 provisioner:
   name: ansible
   log: True
+  inventory:
+    group_vars:
+      slave:
+        solr_instance_type: slave
+        solr_master_defined_host: solr-master.example.com
   playbooks:
     create: ../resources/provisioning/EPC/create.yml
     prepare: ../resources/provisioning/EPC/prepare.yml
@@ -39,7 +47,7 @@ provisioner:
   env:
     ANSIBLE_LIBRARY: ${ANSIBLE_LIBRARY}
 scenario:
-  name: cloud-epc-solr-master
+  name: cloud-epc-delegated
 verifier:
   name: testinfra
   options:

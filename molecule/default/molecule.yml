@@ -15,6 +15,8 @@ platforms:
     privileged: True
     groups:
       - rhel_family
+      - slave
+
   - name: test-docker-ubuntu1804-solr-slave
     image: leandelivery/docker-systemd:ubuntu-18.04
     privileged: True
@@ -29,13 +31,20 @@ platforms:
       - SYS_ADMIN
     groups:
       - debian_family
+      - slave
+
 provisioner:
   name: ansible
   log: True
+  inventory:
+    group_vars:
+      slave:
+        solr_instance_type: slave
+        solr_master_defined_host: solr-master.example.com
   lint:
     name: ansible-lint
 scenario:
-  name: docker-solr-slave
+  name: default
 verifier:
   name: testinfra
   options:

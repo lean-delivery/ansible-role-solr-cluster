@@ -8,25 +8,6 @@
   loop_control:
     loop_var: platform_var
 
-- name: Generate Solr Master URL
-  block:
-    - name: Generate Solr Master URL using variable
-      set_fact:
-        solr_master_generated_url:
-          '{{ (solr_ssl_enabled) | ternary("https", "http") }}://\
-          {{ solr_master_defined_host }}:\
-          {{ solr_port }}/solr/${solr.core.name}/replication'
-      when: solr_master_defined_host is defined
-
-    - name: Generate Solr Master URL using inventory
-      set_fact:
-        solr_master_generated_url:
-          '{{ (solr_ssl_enabled) | ternary("https", "http") }}://\
-          {{ groups[(master_group | default("solr-master"))]|first }}:\
-          {{ solr_port }}/solr/${solr.core.name}/replication'
-      when: solr_master_defined_host is not defined
-  when: solr_instance_type == "slave"
-
 - name: Choose platform based task
   include_tasks: '{{ platform }}'
   with_first_found:
