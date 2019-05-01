@@ -3,9 +3,6 @@
   hosts: all
   roles:
     - role: lean_delivery.java
-      transport: web
-      transport_web: "{{ lookup('env','STORAGE_EPC') }}/oracle-java/jre-8u211-linux-x64.tar.gz"
-      java_tarball_install: True
     - role: lean_delivery.solr_standalone
     - role: ansible-role-solr-cluster
   vars:

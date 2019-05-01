@@ -34,12 +34,20 @@ Requirements
 
 ## Role Variables
   - `solr_instance_type` - determines solr instance type
-  
+
     default: `master`
 
   - `solr_version` - matches available version on https://archive.apache.org/dist/lucene/solr/. Tested versions 5.3-8.x
 
     default: `8.0.0`
+
+  - `solr_config_lines` - configuration for master/slave configuration (depends on OS type and solr_instance_type)
+
+  - `solr_master_generated_url` - URL for master replication. Configured for slave nodes
+
+    default: `{{ (solr_ssl_enabled) | ternary('https', 'http') }}://\
+              {{ solr_master_defined_host | default(groups[(master_group | default('solr-master'))]|first) }}:\
+              {{ solr_port }}/solr/${solr.core.name}/replication`
 
   - `solr_dest_main_path` - root directory to store solr folder
 
@@ -137,7 +145,7 @@ Example Playbook
     - role: lean_delivery.solr_standalone
     - role: lean_delivery.solr_cluster
       solr_instance_type: slave
-    
+
 - name: Configure Solr as master
   hosts: solr-master
   roles:
