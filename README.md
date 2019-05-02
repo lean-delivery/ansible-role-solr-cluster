@@ -78,6 +78,10 @@ Requirements
 
     default: `True`
 
+  - `solr_service_start` - to start solr service in the end of role/Playbook
+
+    default: `True`
+
   - `configset_list` - list of configset directories
 
     default: `- default`

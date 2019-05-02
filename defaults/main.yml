@@ -12,6 +12,7 @@ solr_master_generated_url: '{{ default_solr_master_generated_url }}'
 
 solr_service_name: solr
 solr_with_systemd: True
+solr_service_start: True
 
 solr_base_path: /var/solr
 solr_home: '{{ solr_base_path }}/data'
