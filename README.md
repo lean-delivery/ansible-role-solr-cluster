@@ -19,7 +19,11 @@ Requirements
   - **Supported OS**:
     - CentOS
       - 7
+    - Debian
+      - "Stretch"
     - Ubuntu
+      - "Xenial"
+      - "Bionic"
     - Windows
       - "Windows Server 2008"
       - "Windows Server 2008 R2"
