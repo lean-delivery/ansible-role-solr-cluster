@@ -1,0 +1,16 @@
+---
+- name: restart Solr Linux
+  service:
+    name: '{{ solr_service_name }}'
+    state: restarted
+  when:
+    - solr_with_systemd
+    - solr_service_start
+  become: True
+
+- name: restart Solr Windows
+  win_service:
+    name: '{{ solr_service_name }}'
+    state: restarted
+  when:
+    - solr_service_start

@@ -1,0 +1,16 @@
+---
+default_solr_dest_main_path: 'C:\Solr'
+default_solr_configset_path: '{{ solr_dest_path }}\server\solr\configsets'
+
+win_master_config: '<!-- BEGIN solr ansible custom block --> <lst name="master">
+                   <str name="replicateAfter">commit</str>
+                   <str name="replicateAfter">startup</str>
+                   <str name="confFiles">schema.xml,stopwords.txt</str> </lst>
+                   <!-- END solr ansible custom block -->'
+
+win_slave_config: '<!-- BEGIN solr ansible custom block --> <lst name="slave">
+                  <str name="masterUrl">{{ solr_master_generated_url }}</str>
+                  <str name="pollInterval">00:00:60</str> </lst>
+                  <!-- END solr ansible custom block -->'
+
+default_solr_config_lines: '{{ (solr_instance_type == "master") | ternary(win_master_config, win_slave_config) }}'

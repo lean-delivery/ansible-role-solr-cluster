@@ -1,0 +1,45 @@
+---
+- name: Set configset list
+  find:
+    paths: '{{ solr_configset_path }}'
+    file_type: directory
+  register: configset_output
+  become: True
+  when: auto_populate_configset_list
+
+- name: Populate configset list
+  set_fact:
+    configset_list: >-
+      {{ configset_output.files | map(attribute='path') | list }}
+  when: auto_populate_configset_list
+
+- name: Get config files list contained replication handler
+  find:
+    paths: '{{ solr_configset_path }}/{{ item | basename }}/conf'
+    patterns: 'solrconfig.xml'
+    contains: '(.*)requestHandler(.*)replication(.*)solr.ReplicationHandler(.*)'
+  register: true_configset_xml_list
+  loop: '{{ configset_list }}'
+  become: True
+
+- name: Configure solr node
+  blockinfile:
+    dest: '{{ solr_configset_path }}/{{ item.item | basename }}/conf/solrconfig.xml'
+    insertafter: '.*<requestHandler name="/replication" class="solr.ReplicationHandler".*>'
+    marker: ' <!-- {mark} solr ansible custom block --> '
+    block: '{{ solr_config_lines }}'
+    state: present
+  become: True
+  loop: '{{ true_configset_xml_list.results }}'
+  when: item.matched
+  notify:
+    - restart Solr Linux
+
+- name: Start service
+  service:
+    name: '{{ solr_service_name }}'
+    state: started
+    enabled: True
+  become: True
+  when:
+    - solr_service_start

@@ -1,0 +1,18 @@
+---
+default_solr_dest_main_path: /opt
+default_solr_configset_path: '{{ solr_home }}/configsets'
+
+linux_master_config: |
+          <lst name="master">
+          <str name="replicateAfter">commit</str>
+          <str name="replicateAfter">startup</str>
+          <str name="confFiles">schema.xml,stopwords.txt</str>
+          </lst>
+
+linux_slave_config: |
+          <lst name="slave">
+          <str name="masterUrl">{{ solr_master_generated_url }}</str>
+          <str name="pollInterval">00:00:60</str>
+          </lst>
+
+default_solr_config_lines: '{{ (solr_instance_type == "master") | ternary(linux_master_config, linux_slave_config) }}'
