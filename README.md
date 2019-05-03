@@ -3,9 +3,9 @@ Solr Configuration as Master or Slave
 [![License](https://img.shields.io/badge/license-Apache-green.svg?style=flat)](https://raw.githubusercontent.com/lean-delivery/ansible-role-solr-cluster/master/LICENSE)
 [![Build Status](https://travis-ci.org/lean-delivery/ansible-role-solr-cluster.svg?branch=master)](https://travis-ci.org/lean-delivery/ansible-role-solr-cluster)
 [![Build Status](https://gitlab.com/lean-delivery/ansible-role-solr-cluster/badges/master/build.svg)](https://gitlab.com/lean-delivery/ansible-role-solr-cluster/pipelines)
-[![Galaxy](https://img.shields.io/badge/galaxy-lean__delivery.solr-cluster-blue.svg)](https://galaxy.ansible.com/lean_delivery/solr-cluster)
-![Ansible](https://img.shields.io/ansible/role/d/role_id.svg)
-![Ansible](https://img.shields.io/badge/dynamic/json.svg?label=min_ansible_version&url=https%3A%2F%2Fgalaxy.ansible.com%2Fapi%2Fv1%2Froles%2Frole_id%2F&query=$.min_ansible_version)
+[![Galaxy](https://img.shields.io/badge/galaxy-lean__delivery.solr__cluster-blue.svg)](https://galaxy.ansible.com/lean_delivery/solr_cluster)
+![Ansible](https://img.shields.io/ansible/role/d/40128.svg)
+![Ansible](https://img.shields.io/badge/dynamic/json.svg?label=min_ansible_version&url=https%3A%2F%2Fgalaxy.ansible.com%2Fapi%2Fv1%2Froles%2F40128%2F&query=$.min_ansible_version)
 ## Summary
 
 This role:
