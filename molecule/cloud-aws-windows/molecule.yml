@@ -19,6 +19,7 @@ platforms:
     spot_price: 0.14
     aws_sec_group:
       - default
+      - molecule
     wait_timeout: 1800
     groups:
       - windows
@@ -34,6 +35,7 @@ platforms:
     spot_price: 0.14
     aws_sec_group:
       - default
+      - molecule
     wait_timeout: 1800
     groups:
       - windows
@@ -41,7 +43,7 @@ platforms:
 
 provisioner:
   name: ansible
-  log: False
+  log: True
   connection_options:
     ansible_connection: winrm
   inventory:
@@ -58,7 +60,8 @@ provisioner:
         ansible_winrm_transport: credssp
         ansible_winrm_server_cert_validation: ignore
   playbooks:
-    create: ../resources/provisioning/WINRM/create.yml
+    create: create.yml
+    #create: ../resources/provisioning/WINRM/create.yml
     destroy: ../resources/provisioning/WINRM/destroy.yml
   lint:
     name: ansible-lint
