@@ -20,6 +20,7 @@ platforms:
     aws_sec_group:
       - default
       - molecule
+      - epam-by-ru
     wait_timeout: 1800
     groups:
       - windows
@@ -36,6 +37,7 @@ platforms:
     aws_sec_group:
       - default
       - molecule
+      - epam-by-ru
     wait_timeout: 1800
     groups:
       - windows
