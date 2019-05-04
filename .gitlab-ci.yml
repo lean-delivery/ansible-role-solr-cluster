@@ -32,7 +32,7 @@ Docker solr-cluster-test:
   tags:
     - aws
 
-AWS solr-cluster-test:
+.AWS solr-cluster-test:
   variables:
     AWS_REGION: us-east-1
   stage: deployment test
@@ -41,7 +41,7 @@ AWS solr-cluster-test:
   tags:
     - aws
 
-AWS Windows solr-cluster-test:
+.AWS Windows solr-cluster-test:
   variables:
     AWS_REGION: us-east-1
   stage: deployment test
@@ -50,7 +50,7 @@ AWS Windows solr-cluster-test:
   tags:
     - aws
 
-EPC solr-cluster-test:
+.EPC solr-cluster-test:
   variables:
     EPC_REGION: EPAM-BY2
   stage: deployment test
