@@ -22,7 +22,19 @@
   loop: '{{ configset_list }}'
   become: True
 
-- name: Debug
+- name: Debug linux_slave_config
+  debug:
+    var: linux_slave_config
+
+- name: Debug linux_master_config
+  debug:
+    var: linux_master_config
+
+- name: Debug default_solr_config_lines
+  debug:
+    var: default_solr_config_lines
+
+- name: Debug solr_config_lines
   debug:
     var: solr_config_lines
 
