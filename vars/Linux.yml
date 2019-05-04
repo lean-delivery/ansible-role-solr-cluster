@@ -10,6 +10,7 @@ linux_master_config: |
           # <str name="confFiles">schema.xml,stopwords.txt</str>
           # </lst>
 
+
 linux_slave_config: teset
 
           # <lst name="slave">
