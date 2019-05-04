@@ -15,6 +15,7 @@ platforms:
     privileged: True
     groups:
       - rhel_family
+      - solr-master
 
   - name: test-docker-ubuntu1804-solr-slave
     image: leandelivery/docker-systemd:ubuntu-18.04

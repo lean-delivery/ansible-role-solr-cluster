@@ -30,9 +30,9 @@
   debug:
     var: linux_master_config
 
-- name: Debug default_solr_config_lines
+- name: Debug solr_master_generated_url
   debug:
-    var: default_solr_config_lines
+    var: solr_master_generated_url
 
 - name: Debug solr_config_lines
   debug:
