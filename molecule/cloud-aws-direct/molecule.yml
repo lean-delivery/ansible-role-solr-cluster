@@ -106,6 +106,8 @@ provisioner:
   log: False
   inventory:
     group_vars:
+      all:
+        solr_patch_transport_web: '{{ lookup("env","STORAGE_AWS") }}/hybris-solr'
       solr7:
         solr_version: 7.7.1
       solr8:
@@ -115,7 +117,7 @@ provisioner:
         solr_master_defined_host: solr-master.example.com
   playbooks:
     create: ../resources/provisioning/AWS/create.yml
-    prepare: ../resources/provisioning/AWS/prepare.yml
+    prepare: ../resources/prepare.yml
     destroy: ../resources/provisioning/AWS/destroy.yml
   lint:
     name: ansible-lint

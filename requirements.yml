@@ -1,3 +1,4 @@
 ---
 - src: lean_delivery.solr_standalone
+- src: lean_delivery.solr_hybris_config
 - src: lean_delivery.java
