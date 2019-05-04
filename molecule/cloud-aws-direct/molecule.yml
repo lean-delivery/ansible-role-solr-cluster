@@ -54,6 +54,7 @@ platforms:
     ssh_user: ubuntu
     groups:
       - debian_family
+      - solr8
 
   - name: test-aws-ubuntu18-solr-slave-solr7
     image: ami-012fd5eb46f56731f
@@ -100,6 +101,7 @@ platforms:
     groups:
       - debian_family
       - slave
+      - solr8
 
 provisioner:
   name: ansible
