@@ -22,26 +22,6 @@
   loop: '{{ configset_list }}'
   become: True
 
-- name: Debug linux_slave_config
-  debug:
-    var: linux_slave_config
-
-- name: Debug linux_master_config
-  debug:
-    var: linux_master_config
-
-- name: Debug solr_master_generated_url
-  debug:
-    var: solr_master_generated_url
-
-- name: Debug solr_config_lines
-  debug:
-    var: solr_config_lines
-
-- name: Debug2
-  debug:
-    var: true_configset_xml_list
-
 - name: Configure solr node
   blockinfile:
     dest: '{{ solr_configset_path }}/{{ item.item | basename }}/conf/solrconfig.xml'
