@@ -11,7 +11,7 @@ lint:
     config-file: .yamllint
 platforms:
   - name: test-aws-Windows2016-solr-slave-solr7
-    aws_image_id: ami-00a20f508263efd30
+    aws_image_id: ami-07a29e78aeb420471
     aws_region: us-east-1
     instance_type: m5.large
     vpc_subnet_id: subnet-01be2149
@@ -19,8 +19,6 @@ platforms:
     spot_price: 0.14
     aws_sec_group:
       - default
-      # - molecule
-      # - epam-by-ru
     wait_timeout: 1800
     groups:
       - windows
@@ -28,7 +26,7 @@ platforms:
       - slave
 
   - name: test-aws-Windows2016-solr-master-solr8
-    aws_image_id: ami-00a20f508263efd30
+    aws_image_id: ami-07a29e78aeb420471
     aws_region: us-east-1
     instance_type: m5.large
     vpc_subnet_id: subnet-01be2149
@@ -36,8 +34,6 @@ platforms:
     spot_price: 0.14
     aws_sec_group:
       - default
-      # - molecule
-      # - epam-by-ru
     wait_timeout: 1800
     groups:
       - windows
@@ -62,8 +58,8 @@ provisioner:
         ansible_winrm_transport: credssp
         ansible_winrm_server_cert_validation: ignore
   playbooks:
-    create: create.yml
-    # create: ../resources/provisioning/WINRM/create.yml
+    create: ../resources/provisioning/WINRM/create.yml
+    prepare: prepare.yml
     destroy: ../resources/provisioning/WINRM/destroy.yml
   lint:
     name: ansible-lint

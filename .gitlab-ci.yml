@@ -32,7 +32,7 @@ Ansible lint:
   tags:
     - aws
 
-.AWS solr-cluster-test:
+AWS solr-cluster-test:
   variables:
     AWS_REGION: us-east-1
   stage: deployment test

@@ -2,7 +2,8 @@
 - name: Converge
   hosts: all
   roles:
-    - role: ansible-role-solr-cluster
+    - role: lean_delivery.java
+    - role: lean_delivery.solr_standalone
   vars:
     solr_change_default_password: False
     solr_copy_default_configsets: True
