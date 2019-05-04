@@ -10,13 +10,11 @@ lint:
   options:
     config-file: .yamllint
 platforms:
-  - name: test-docker-centos7-solr-slave
+  - name: test-docker-centos7-solr-master
     image: leandelivery/docker-systemd:centos7
     privileged: True
     groups:
       - rhel_family
-      - slave
-      - solr8
 
   - name: test-docker-ubuntu1804-solr-slave
     image: leandelivery/docker-systemd:ubuntu-18.04
@@ -33,7 +31,6 @@ platforms:
     groups:
       - debian_family
       - slave
-      - solr8
 
 provisioner:
   name: ansible

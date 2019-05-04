@@ -22,6 +22,14 @@
   loop: '{{ configset_list }}'
   become: True
 
+- name: Debug
+  debug:
+    var: solr_config_lines
+
+- name: Debug2
+  debug:
+    var: true_configset_xml_list
+
 - name: Configure solr node
   blockinfile:
     dest: '{{ solr_configset_path }}/{{ item.item | basename }}/conf/solrconfig.xml'
