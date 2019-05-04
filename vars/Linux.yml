@@ -11,12 +11,10 @@ linux_master_config: |
           # </lst>
 
 
-linux_slave_config: "<lst name=\"slave\">
-
-          <str name=\"masterUrl\">{{ solr_master_generated_url }}</str>
-
-          <str name=\"pollInterval\">00:00:60</str>
-
-          </lst>"
+linux_slave_config: |
+          <lst name='slave'>
+          <str name='masterUrl'>{{ solr_master_generated_url }}</str>
+          <str name='pollInterval'>00:00:60</str>
+          </lst>
 
 default_solr_config_lines: '{{ (solr_instance_type == "master") | ternary(linux_master_config, linux_slave_config) }}'
