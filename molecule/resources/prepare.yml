@@ -34,18 +34,18 @@
       until: status is succeeded
       become: True
 
-- name: Prepare java
-  hosts: all
-  roles:
-    - role: lean_delivery.java
+# - name: Prepare java
+#   hosts: all
+#   roles:
+#     - role: lean_delivery.java
 
-- name: Install and Configure Solr
-  hosts: all
-  roles:
-   - role: lean_delivery.solr_standalone
-   - role: lean_delivery.solr_hybris_config
-  vars:
-    solr_change_default_password: False
-    solr_auth_configure: False
-    solr_use_java_version_8: False
-    solr_patch_transport: web
+# - name: Install and Configure Solr
+#   hosts: all
+#   roles:
+#    - role: lean_delivery.solr_standalone
+#    - role: lean_delivery.solr_hybris_config
+#   vars:
+#     solr_change_default_password: False
+#     solr_auth_configure: False
+#     solr_use_java_version_8: False
+#     solr_patch_transport: web

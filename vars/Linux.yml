@@ -10,8 +10,8 @@ linux_master_config: |
           # <str name="confFiles">schema.xml,stopwords.txt</str>
           # </lst>
 
-linux_slave_config: |
-      teset
+linux_slave_config: teset
+
           # <lst name="slave">
           # <str name="masterUrl">{{ solr_master_generated_url }}</str>
           # <str name="pollInterval">00:00:60</str>
