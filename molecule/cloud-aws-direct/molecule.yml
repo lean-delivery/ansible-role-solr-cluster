@@ -24,6 +24,7 @@ platforms:
     groups:
       - rhel_family
       - solr7
+      - solr-master
 
   - name: test-aws-centos7-solr-slave-solr8
     image: ami-9887c6e7

@@ -52,6 +52,7 @@ platforms:
     groups:
       - windows
       - solr7
+      - solr-master
 
   - name: test-aws-Windows2019-solr-slave-solr8
     aws_image_id: ami-03ad37b4adab50a4c
