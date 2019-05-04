@@ -11,7 +11,7 @@ linux_master_config: testa
           # </lst>
 
 linux_slave_config: |
-          <lst name=slave>
+          \<lst name=slave\>
           # <str name=masterUrl>{{ solr_master_generated_url }}</str>
           # <str name=pollInterval>00:00:60</str>
           # </lst>
