@@ -1,13 +1,4 @@
 ---
-- name: Perform a GET and Store Output
-  win_uri:
-    url: https://api.ipify.org
-  register: http_output
-
-- name: Out public ip
-  debug:
-    var: http_output
-
 - name: Set configset list
   win_find:
     paths: '{{ solr_configset_path }}'

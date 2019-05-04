@@ -1,10 +1,20 @@
 ---
 - name: Converge
   hosts: all
-  roles:
-    - role: lean_delivery.java
-    - role: lean_delivery.solr_standalone
-    - role: ansible-role-solr-cluster
+  tasks:
+    - name: Perform a GET and Store Output
+      win_uri:
+        url: https://api.ipify.org?format=json
+      register: http_output
+
+    - name: Out public ip
+      debug:
+        var: http_output
+
+  # roles:
+  #   - role: lean_delivery.java
+  #   - role: lean_delivery.solr_standalone
+  #   - role: ansible-role-solr-cluster
   vars:
     solr_change_default_password: False
     solr_copy_default_configsets: True
