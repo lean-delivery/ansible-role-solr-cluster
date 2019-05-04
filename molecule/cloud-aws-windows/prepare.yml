@@ -1,5 +1,5 @@
 ---
-- name: Converge
+- name: Install java and solr-standalone
   hosts: all
   roles:
     - role: lean_delivery.java
