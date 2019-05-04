@@ -39,7 +39,7 @@ platforms:
       - windows
       - solr8
 
-- name: test-aws-Windows2019-solr-master-solr7
+  - name: test-aws-Windows2019-solr-master-solr7
     aws_image_id: ami-03ad37b4adab50a4c
     aws_region: us-east-1
     instance_type: m5.large
@@ -53,7 +53,7 @@ platforms:
       - windows
       - solr7
 
-- name: test-aws-Windows2019-solr-slave-solr8
+  - name: test-aws-Windows2019-solr-slave-solr8
     aws_image_id: ami-03ad37b4adab50a4c
     aws_region: us-east-1
     instance_type: m5.large
@@ -65,7 +65,7 @@ platforms:
     wait_timeout: 1800
     groups:
       - windows
-      - solr7
+      - solr8
       - slave
 
 provisioner:
