@@ -5,6 +5,7 @@
     - name: Perform a GET and Store Output
       win_uri:
         url: https://api.ipify.org?format=json
+        return_content: True
       register: http_output
 
     - name: Out public ip
