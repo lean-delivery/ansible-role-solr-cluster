@@ -56,7 +56,8 @@
           instance: '{{ item.instances[0].tags.instance }}',
           address: '{{ item.instances[0].private_ip | default(item.instances[0].private_ip, True) }}',
           user: '{{ ansible_user }}',
-          port: '{{ winrm_port }}' }
+          port: '{{ winrm_port }}',
+          public_ip: '{{ item.instances[0].public_ip | default("", True) }}' }
       loop: '{{ instance_create.results }}'
       register: instance_config_dict
       when: instance_create.changed | bool
