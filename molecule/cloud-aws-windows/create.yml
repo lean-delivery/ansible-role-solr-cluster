@@ -12,7 +12,7 @@
     ansible_user: "{{ lookup('env', 'WINRM_ADMIN_ACC') | default('molecule', True) }}"
     ansible_password: "{{ lookup('env', 'WINRM_ADMIN_PWD') | default('M0leCule123!', True) }}"
     ec2_user_data: "{{ lookup('template', './windows') }}"
-    winrm_port: 22
+    winrm_port: 5986
 
   tasks:
 
@@ -54,7 +54,7 @@
       set_fact:
         instance_conf_dict: {
           instance: '{{ item.instances[0].tags.instance }}',
-          address: '{{ item.instances[0].public_ip | default(item.instances[0].private_ip, True) }}',
+          address: '{{ item.instances[0].private_ip | default(item.instances[0].private_ip, True) }}',
           user: '{{ ansible_user }}',
           port: '{{ winrm_port }}' }
       loop: '{{ instance_create.results }}'
