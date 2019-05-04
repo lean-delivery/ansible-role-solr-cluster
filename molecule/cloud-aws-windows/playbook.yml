@@ -10,7 +10,7 @@
 
     - name: Out public ip
       debug:
-        var: http_output
+        var: http_output.json.ip
 
   # roles:
   #   - role: lean_delivery.java
