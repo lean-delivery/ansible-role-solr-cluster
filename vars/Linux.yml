@@ -11,8 +11,7 @@ linux_master_config: |
           # </lst>
 
 
-linux_slave_config: |
-          "<lst name=\"slave\">
+linux_slave_config: "<lst name=\"slave\">
 
           <str name=\"masterUrl\">{{ solr_master_generated_url }}</str>
 
