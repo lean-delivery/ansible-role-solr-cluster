@@ -11,11 +11,11 @@ lint:
     config-file: .yamllint
 platforms:
   - name: test-aws-Windows2016-solr-slave-solr7
-    aws_image_id: ami-00a20f508263efd30
+    aws_image_id: ami-07a29e78aeb420471
     aws_region: us-east-1
     instance_type: m5.large
-    vpc_subnet_id: subnet-05a2ef2b767afec50
-    assign_public_ip: False
+    vpc_subnet_id: subnet-01be2149
+    assign_public_ip: True
     spot_price: 0.14
     aws_sec_group:
       - default
@@ -26,11 +26,11 @@ platforms:
       - slave
 
   - name: test-aws-Windows2016-solr-master-solr8
-    aws_image_id: ami-00a20f508263efd30
+    aws_image_id: ami-07a29e78aeb420471
     aws_region: us-east-1
     instance_type: m5.large
-    vpc_subnet_id: subnet-05a2ef2b767afec50
-    assign_public_ip: False
+    vpc_subnet_id: subnet-01be2149
+    assign_public_ip: True
     spot_price: 0.14
     aws_sec_group:
       - default
@@ -39,6 +39,36 @@ platforms:
       - windows
       - solr8
 
+  - name: test-aws-Windows2019-solr-master-solr7
+    aws_image_id: ami-03ad37b4adab50a4c
+    aws_region: us-east-1
+    instance_type: m5.large
+    vpc_subnet_id: subnet-01be2149
+    assign_public_ip: True
+    spot_price: 0.14
+    aws_sec_group:
+      - default
+    wait_timeout: 1800
+    groups:
+      - windows
+      - solr7
+      - solr-master
+
+  - name: test-aws-Windows2019-solr-slave-solr8
+    aws_image_id: ami-03ad37b4adab50a4c
+    aws_region: us-east-1
+    instance_type: m5.large
+    vpc_subnet_id: subnet-01be2149
+    assign_public_ip: True
+    spot_price: 0.14
+    aws_sec_group:
+      - default
+    wait_timeout: 1800
+    groups:
+      - windows
+      - solr8
+      - slave
+
 provisioner:
   name: ansible
   log: False
@@ -46,6 +76,8 @@ provisioner:
     ansible_connection: winrm
   inventory:
     group_vars:
+      all:
+        solr_patch_transport_web: '{{ lookup("env","STORAGE_AWS") }}/hybris-solr'
       solr7:
         solr_version: 7.7.1
       solr8:
@@ -59,6 +91,7 @@ provisioner:
         ansible_winrm_server_cert_validation: ignore
   playbooks:
     create: ../resources/provisioning/WINRM/create.yml
+    prepare: ../resources/prepare.yml
     destroy: ../resources/provisioning/WINRM/destroy.yml
   lint:
     name: ansible-lint

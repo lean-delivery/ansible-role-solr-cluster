@@ -26,18 +26,22 @@ platforms:
     wait_timeout: 3600
     groups:
       - debian_family
+      - solr-master
 
 provisioner:
   name: ansible
   log: True
   inventory:
     group_vars:
+      all:
+        solr_patch_transport_web: '{{ lookup("env","STORAGE_EPC") }}/hybris-solr'
+        solr_version: 8.0.0
       slave:
         solr_instance_type: slave
         solr_master_defined_host: solr-master.example.com
   playbooks:
     create: ../resources/provisioning/EPC/create.yml
-    prepare: ../resources/provisioning/EPC/prepare.yml
+    prepare: ../resources/prepare.yml
     destroy: ../resources/provisioning/EPC/destroy.yml
   config_options:
     ssh_connection:
