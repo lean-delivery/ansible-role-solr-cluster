@@ -10,12 +10,12 @@ lint:
   options:
     config-file: .yamllint
 platforms:
-  - name: test-aws-centos7-solr-master-solr7
+  - name: test-aws-centos7-solr_master-solr7
     image: ami-9887c6e7
     instance_type: m5.large
     region: us-east-1
     vpc_subnet_id: subnet-05a2ef2b767afec50
-    assign_public_ip: False
+    assign_public_ip: true
     spot_price: 0.04
     security_group_name:
       - default
@@ -24,14 +24,14 @@ platforms:
     groups:
       - rhel_family
       - solr7
-      - solr-master
+      - solr_master
 
   - name: test-aws-centos7-solr-slave-solr8
     image: ami-9887c6e7
     instance_type: m5.large
     region: us-east-1
     vpc_subnet_id: subnet-05a2ef2b767afec50
-    assign_public_ip: False
+    assign_public_ip: true
     spot_price: 0.04
     security_group_name:
       - default
@@ -42,12 +42,12 @@ platforms:
       - solr8
       - slave
 
-  - name: test-aws-ubuntu16-solr-master
+  - name: test-aws-ubuntu16-solr_master
     image: ami-09677e0a6b14905b0
     instance_type: m5.large
     region: us-east-1
     vpc_subnet_id: subnet-05a2ef2b767afec50
-    assign_public_ip: False
+    assign_public_ip: true
     security_group_name:
       - default
     spot_price: 0.04
@@ -62,7 +62,7 @@ platforms:
     instance_type: m5.large
     region: us-east-1
     vpc_subnet_id: subnet-05a2ef2b767afec50
-    assign_public_ip: False
+    assign_public_ip: true
     security_group_name:
       - default
     spot_price: 0.04
@@ -73,12 +73,12 @@ platforms:
       - solr7
       - slave
 
-  - name: test-aws-ubuntu18-solr-master-solr8
+  - name: test-aws-ubuntu18-solr_master-solr8
     image: ami-012fd5eb46f56731f
     instance_type: m5.large
     region: us-east-1
     vpc_subnet_id: subnet-05a2ef2b767afec50
-    assign_public_ip: False
+    assign_public_ip: true
     security_group_name:
       - default
     spot_price: 0.04
@@ -93,7 +93,7 @@ platforms:
     instance_type: m5.large
     region: us-east-1
     vpc_subnet_id: subnet-05a2ef2b767afec50
-    assign_public_ip: False
+    assign_public_ip: true
     spot_price: 0.04
     security_group_name:
       - default
@@ -106,7 +106,7 @@ platforms:
 
 provisioner:
   name: ansible
-  log: False
+  log: false
   inventory:
     group_vars:
       all:
@@ -117,7 +117,7 @@ provisioner:
         solr_version: 8.0.0
       slave:
         solr_instance_type: slave
-        solr_master_defined_host: solr-master.example.com
+        solr_master_defined_host: solr_master.example.com
   playbooks:
     create: ../resources/provisioning/AWS/create.yml
     prepare: ../resources/prepare.yml
