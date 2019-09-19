@@ -6,7 +6,7 @@
   when:
     - solr_with_systemd
     - solr_service_start
-  become: True
+  become: true
 
 - name: restart Solr Windows
   win_service:

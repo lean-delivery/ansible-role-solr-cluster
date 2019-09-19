@@ -21,8 +21,8 @@
     removes: '{{ solr_configset_path }}/{{ item | win_basename }}/conf/solrconfig.xml'
   register: true_configset_xml_list
   loop: '{{ configset_list }}'
-  failed_when: False
-  changed_when: False
+  failed_when: false
+  changed_when: false
 
 - name: Configure solr node
   win_lineinfile:
