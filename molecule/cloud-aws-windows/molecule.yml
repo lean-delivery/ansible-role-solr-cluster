@@ -4,20 +4,21 @@ dependency:
   options:
     role-file: requirements.yml
 driver:
-  name: delegated
+  name: ec2
 lint:
   name: yamllint
   options:
     config-file: .yamllint
 platforms:
   - name: test-aws-Windows2016-solr-slave-solr7
-    aws_image_id: ami-07a29e78aeb420471
-    aws_region: us-east-1
+    image_id: ami-00a20f508263efd30
+    platform: windows2016core
+    region: us-east-1
     instance_type: m5.large
-    vpc_subnet_id: subnet-01be2149
-    assign_public_ip: True
+    vpc_subnet_id: subnet-314c223d
+    assign_public_ip: false
     spot_price: 0.14
-    aws_sec_group:
+    security_group_name:
       - default
     wait_timeout: 1800
     groups:
@@ -26,13 +27,14 @@ platforms:
       - slave
 
   - name: test-aws-Windows2016-solr-master-solr8
-    aws_image_id: ami-07a29e78aeb420471
-    aws_region: us-east-1
+    image_id: ami-00a20f508263efd30
+    platform: windows2016core
+    region: us-east-1
     instance_type: m5.large
-    vpc_subnet_id: subnet-01be2149
-    assign_public_ip: True
+    vpc_subnet_id: subnet-314c223d
+    assign_public_ip: false
     spot_price: 0.14
-    aws_sec_group:
+    security_group_name:
       - default
     wait_timeout: 1800
     groups:
@@ -40,28 +42,30 @@ platforms:
       - solr8
 
   - name: test-aws-Windows2019-solr-master-solr7
-    aws_image_id: ami-03ad37b4adab50a4c
-    aws_region: us-east-1
+    image_id: ami-0477b9335a5a75438
+    platform: windows2019core
+    region: us-east-1
     instance_type: m5.large
-    vpc_subnet_id: subnet-01be2149
-    assign_public_ip: True
+    vpc_subnet_id: subnet-0f2b9cd66faea38af
+    assign_public_ip: false
     spot_price: 0.14
-    aws_sec_group:
+    security_group_name:
       - default
     wait_timeout: 1800
     groups:
       - windows
       - solr7
-      - solr-master
+      - solr_master
 
   - name: test-aws-Windows2019-solr-slave-solr8
-    aws_image_id: ami-03ad37b4adab50a4c
-    aws_region: us-east-1
+    image_id: ami-0477b9335a5a75438
+    platform: windows2019core
+    region: us-east-1
     instance_type: m5.large
-    vpc_subnet_id: subnet-01be2149
-    assign_public_ip: True
+    vpc_subnet_id: subnet-0f2b9cd66faea38af
+    assign_public_ip: false
     spot_price: 0.14
-    aws_sec_group:
+    security_group_name:
       - default
     wait_timeout: 1800
     groups:
@@ -71,12 +75,14 @@ platforms:
 
 provisioner:
   name: ansible
-  log: False
-  connection_options:
-    ansible_connection: winrm
+  log: false
+  config_options:
+    defaults:
+      callback_whitelist: profile_tasks,timer
   inventory:
     group_vars:
       all:
+        ansible_connection: winrm
         solr_patch_transport_web: '{{ lookup("env","STORAGE_AWS") }}/hybris-solr'
       solr7:
         solr_version: 7.7.1
@@ -84,15 +90,15 @@ provisioner:
         solr_version: 8.0.0
       slave:
         solr_instance_type: slave
-        solr_master_defined_host: solr-master.example.com
+        solr_master_defined_host: solr_master.example.com
       windows:
-        ansible_password: "{{ lookup('env', 'WINRM_ADMIN_PWD') | default('M0leCule123!', True) }}"
+        ansible_password: "{{ lookup('env', 'WINRM_ADMIN_PWD') | default('M0leCule123!', true) }}"
         ansible_winrm_transport: credssp
         ansible_winrm_server_cert_validation: ignore
   playbooks:
-    create: ../resources/provisioning/WINRM/create.yml
+    create: ../resources/provisioning/AWS/create.yml
     prepare: ../resources/prepare.yml
-    destroy: ../resources/provisioning/WINRM/destroy.yml
+    destroy: ../resources/provisioning/AWS/destroy.yml
   lint:
     name: ansible-lint
 scenario:

@@ -15,7 +15,7 @@ platforms:
     instance_type: m5.large
     region: us-east-1
     vpc_subnet_id: subnet-05a2ef2b767afec50
-    assign_public_ip: False
+    assign_public_ip: false
     spot_price: 0.04
     security_group_name:
       - default
@@ -24,14 +24,14 @@ platforms:
     groups:
       - rhel_family
       - solr7
-      - solr-master
+      - solr_master
 
   - name: test-aws-centos7-solr-slave-solr8
     image: ami-9887c6e7
     instance_type: m5.large
     region: us-east-1
     vpc_subnet_id: subnet-05a2ef2b767afec50
-    assign_public_ip: False
+    assign_public_ip: false
     spot_price: 0.04
     security_group_name:
       - default
@@ -47,7 +47,7 @@ platforms:
     instance_type: m5.large
     region: us-east-1
     vpc_subnet_id: subnet-05a2ef2b767afec50
-    assign_public_ip: False
+    assign_public_ip: false
     security_group_name:
       - default
     spot_price: 0.04
@@ -62,7 +62,7 @@ platforms:
     instance_type: m5.large
     region: us-east-1
     vpc_subnet_id: subnet-05a2ef2b767afec50
-    assign_public_ip: False
+    assign_public_ip: false
     security_group_name:
       - default
     spot_price: 0.04
@@ -78,7 +78,7 @@ platforms:
     instance_type: m5.large
     region: us-east-1
     vpc_subnet_id: subnet-05a2ef2b767afec50
-    assign_public_ip: False
+    assign_public_ip: false
     security_group_name:
       - default
     spot_price: 0.04
@@ -93,7 +93,7 @@ platforms:
     instance_type: m5.large
     region: us-east-1
     vpc_subnet_id: subnet-05a2ef2b767afec50
-    assign_public_ip: False
+    assign_public_ip: false
     spot_price: 0.04
     security_group_name:
       - default
@@ -106,7 +106,7 @@ platforms:
 
 provisioner:
   name: ansible
-  log: False
+  log: false
   inventory:
     group_vars:
       all:
@@ -117,7 +117,7 @@ provisioner:
         solr_version: 8.0.0
       slave:
         solr_instance_type: slave
-        solr_master_defined_host: solr-master.example.com
+        solr_master_defined_host: solr_master.example.com
   playbooks:
     create: ../resources/provisioning/AWS/create.yml
     prepare: ../resources/prepare.yml
