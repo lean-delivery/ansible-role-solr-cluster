@@ -51,7 +51,7 @@ Requirements
   - `solr_master_generated_url` - URL for master replication. Configured for slave nodes
 
     default: `{{ (solr_ssl_enabled) | ternary('https', 'http') }}://\
-              {{ solr_master_defined_host | default(groups[(master_group | default('solr-master'))]|first) }}:\
+              {{ solr_master_defined_host | default(groups[(master_group | default('solr_master'))]|first) }}:\
               {{ solr_port }}/solr/${solr.core.name}/replication`
 
   - `solr_dest_main_path` - root directory to store solr folder
@@ -90,13 +90,13 @@ Requirements
 
     default: `True`
 
-  - `solr_master_defined_host` - solr master host name. If defined - it will be used, else first server from solr-master group from inventory file
+  - `solr_master_defined_host` - solr master host name. If defined - it will be used, else first server from solr_master group from inventory file
 
     default: `undefined`
 
   - `master_group` - solr master group name in inventory file
 
-    default: `solr-master`
+    default: `solr_master`
 
   - `solr_port` - solr master port
 
@@ -118,8 +118,8 @@ Requirements
 Example Inventory
 ----------------
 ```ini
-[solr-master]
-solr-master.example.com
+[solr_master]
+solr_master.example.com
 
 [solr-slave]
 solr.example.com
@@ -156,7 +156,7 @@ Example Playbook
       solr_instance_type: slave
 
 - name: Configure Solr as master
-  hosts: solr-master
+  hosts: solr_master
   roles:
     - role: lean_delivery.java
     - role: lean_delivery.solr_standalone
