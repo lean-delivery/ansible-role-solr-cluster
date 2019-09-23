@@ -1,0 +1,12 @@
+---
+- name: Verify
+  hosts: all
+  tasks:
+    - name: Check if solr service is installed
+      win_service:
+        name: solr
+      register: solr_service_info
+
+    - name: Assert that filebeat package is installed
+      assert:
+        that: "'running' in solr_service_info.state"

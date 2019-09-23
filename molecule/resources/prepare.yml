@@ -1,38 +1,18 @@
 ---
-- name: Prepare Ubuntu / Debian
-  hosts: debian_family
-  gather_facts: False
-  tasks:
-
-    - name: Install python for Ansible
-      raw: test -e /usr/bin/python || (apt install -y python-minimal)
-      become: True
-      changed_when: False
-      register: update_result
-      retries: 10
-      delay: 5
-      until: update_result.rc == 0
+- name: Include common prepare
+  import_playbook: provisioning/AWS/prepare.yml
 
 - name: Prepare RHEL
   hosts: rhel_family
-  gather_facts: False
   tasks:
-    - name: Install python for Ansible
-      raw: test -e /usr/bin/python || (yum install -y python2 python-simplejson)
-      become: True
-      changed_when: False
-
-    - name: gather facts
-      setup:
-
-    - name: 'Enable EPEL repository'
+    - name: Enable EPEL repository
       yum:
         name: "https://dl.fedoraproject.org/pub/epel/epel-release-latest-\
           {{ ansible_distribution_major_version }}.noarch.rpm"
         state: 'present'
       register: status
       until: status is succeeded
-      become: True
+      become: true
 
 - name: Prepare java and solr
   hosts: all
@@ -41,7 +21,7 @@
     - role: lean_delivery.solr_standalone
     - role: lean_delivery.solr_hybris_config
   vars:
-    solr_change_default_password: False
-    solr_auth_configure: False
-    solr_use_java_version_8: False
+    solr_change_default_password: false
+    solr_auth_configure: false
+    solr_use_java_version_8: false
     solr_patch_transport: web

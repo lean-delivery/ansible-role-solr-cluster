@@ -27,6 +27,6 @@ auto_populate_configset_list: True
 
 ## solr master configuration
 # solr_master_defined_host: solr.example.com
-master_group: solr-master
+master_group: solr_master
 solr_port: 8983
 solr_ssl_enabled: True

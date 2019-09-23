@@ -4,7 +4,7 @@
     paths: '{{ solr_configset_path }}'
     file_type: directory
   register: configset_output
-  become: True
+  become: true
   when: auto_populate_configset_list
 
 - name: Populate configset list
@@ -20,7 +20,7 @@
     contains: '(.*)requestHandler(.*)replication(.*)solr.ReplicationHandler(.*)'
   register: true_configset_xml_list
   loop: '{{ configset_list }}'
-  become: True
+  become: true
 
 - name: Configure solr node
   blockinfile:
@@ -29,7 +29,7 @@
     marker: ' <!-- {mark} solr ansible custom block --> '
     block: '{{ solr_config_lines }}'
     state: present
-  become: True
+  become: true
   loop: '{{ true_configset_xml_list.results }}'
   when: item.matched
   notify:
@@ -39,7 +39,7 @@
   service:
     name: '{{ solr_service_name }}'
     state: started
-    enabled: True
-  become: True
+    enabled: true
+  become: true
   when:
     - solr_service_start

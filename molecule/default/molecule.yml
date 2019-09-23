@@ -10,16 +10,16 @@ lint:
   options:
     config-file: .yamllint
 platforms:
-  - name: test-docker-centos7-solr-master
+  - name: test-docker-centos7-solr_master
     image: leandelivery/docker-systemd:centos7
-    privileged: True
+    privileged: true
     groups:
       - rhel_family
-      - solr-master
+      - solr_master
 
   - name: test-docker-ubuntu1804-solr-slave
     image: leandelivery/docker-systemd:ubuntu-18.04
-    privileged: True
+    privileged: true
     security_opts:
       - seccomp=unconfined
     volumes:
@@ -43,17 +43,15 @@ provisioner:
         solr_version: 8.0.0
       slave:
         solr_instance_type: slave
-        solr_master_defined_host: solr-master.example.com
+        solr_master_defined_host: solr_master.example.com
   playbooks:
     prepare: ../resources/prepare.yml
+    verify: ../resources/tests/verify.yml
   lint:
     name: ansible-lint
 scenario:
   name: default
 verifier:
-  name: testinfra
-  options:
-    verbose: true
-  directory: ../resources/tests/
+  name: ansible
   lint:
-    name: flake8
+    name: ansible-lint
