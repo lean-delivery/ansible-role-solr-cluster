@@ -16,7 +16,7 @@ platforms:
     region: us-east-1
     instance_type: m5.large
     vpc_subnet_id: subnet-314c223d
-    assign_public_ip: false
+    assign_public_ip: True
     spot_price: 0.14
     security_group_name:
       - default
@@ -32,7 +32,7 @@ platforms:
     region: us-east-1
     instance_type: m5.large
     vpc_subnet_id: subnet-314c223d
-    assign_public_ip: false
+    assign_public_ip: True
     spot_price: 0.14
     security_group_name:
       - default
@@ -47,7 +47,7 @@ platforms:
     region: us-east-1
     instance_type: m5.large
     vpc_subnet_id: subnet-0f2b9cd66faea38af
-    assign_public_ip: false
+    assign_public_ip: True
     spot_price: 0.14
     security_group_name:
       - default
@@ -63,7 +63,7 @@ platforms:
     region: us-east-1
     instance_type: m5.large
     vpc_subnet_id: subnet-0f2b9cd66faea38af
-    assign_public_ip: false
+    assign_public_ip: True
     spot_price: 0.14
     security_group_name:
       - default

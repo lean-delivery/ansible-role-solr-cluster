@@ -30,7 +30,7 @@ platforms:
 
 provisioner:
   name: ansible
-  log: true
+  log: True
   inventory:
     group_vars:
       all:
