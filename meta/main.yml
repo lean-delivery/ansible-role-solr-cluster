@@ -1,6 +1,6 @@
 ---
 galaxy_info:
-  role_name: "solr-cluster"
+  role_name: "solr_cluster"
   author: "Lean Delivery team <team@lean-delivery.com>"
   description: "Lean Delivery Solr configuration as master or slave"
   company: "Epam Systems"
