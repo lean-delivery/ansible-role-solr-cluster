@@ -2,6 +2,7 @@
 default_solr_dest_main_path: /opt
 default_solr_configset_path: '{{ solr_home }}/configsets'
 
+# Solr 8.x and lower: master / masterUrl
 linux_master_config: |
           <lst name="master">
           <str name="replicateAfter">commit</str>
@@ -15,4 +16,22 @@ linux_slave_config: |
           <str name="pollInterval">00:00:60</str>
           </lst>
 
-default_solr_config_lines: '{{ (solr_instance_type == "master") | ternary(linux_master_config, linux_slave_config) }}'
+# Solr 9.x: leader / leaderUrl
+linux_master_config_9: |
+          <lst name="leader">
+          <str name="replicateAfter">commit</str>
+          <str name="replicateAfter">startup</str>
+          <str name="confFiles">schema.xml,stopwords.txt</str>
+          </lst>
+
+linux_slave_config_9: |
+          <lst name="follower">
+          <str name="leaderUrl">{{ solr_master_generated_url }}</str>
+          <str name="pollInterval">00:00:60</str>
+          </lst>
+
+# Select config by solr_version (9.x uses leader/leaderUrl)
+linux_master_config_selected: '{{ linux_master_config_9 if (solr_version is version("9.0", ">=")) else linux_master_config }}'
+linux_slave_config_selected: '{{ linux_slave_config_9 if (solr_version is version("9.0", ">=")) else linux_slave_config }}'
+
+default_solr_config_lines: '{{ (solr_instance_type == "master") | ternary(linux_master_config_selected, linux_slave_config_selected) }}'
